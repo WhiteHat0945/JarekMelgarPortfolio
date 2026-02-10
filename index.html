@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarek Melgar | UI/UX Designer & Admin Officer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0f1014;
+            --card-bg: #1e1f26;
+            --accent: #6C63FF; /* Modern Purple */
+            --accent-hover: #524bc8;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --font-main: 'Inter', sans-serif;
+            --font-display: 'Playfair Display', serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 16, 20, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem 0; /* Added top padding to clear nav */
+            position: relative;
+        }
+
+        /* Background Gradient */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            filter: blur(150px);
+            opacity: 0.2;
+            border-radius: 50%;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Profile Image Styling */
+        .profile-wrapper {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%;
+            padding: 4px; /* Space for border */
+            background: linear-gradient(135deg, var(--accent), #2a2b36);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.3);
+        }
+
+        .profile-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-color); /* Inner border to match bg */
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.2s;
+        }
+
+        .hero-content h2 {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.4s;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.6s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: transparent;
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px rgba(108, 99, 255, 0.4);
+        }
+
+        /* --- SECTIONS GENERAL --- */
+        section {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        /* --- EXPERIENCE SECTION --- */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .exp-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+
+        .exp-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .exp-year {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .exp-role {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-company {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .exp-desc {
+            font-size: 0.95rem;
+            color: #d1d1d6;
+        }
+
+        /* --- PORTFOLIO SECTION --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .project-img-wrapper {
+            width: 100%;
+            height: 220px;
+            background-color: #2a2b36;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        /* --- FOOTER & CONTACT --- */
+        footer {
+            padding: 4rem 10%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: #0a0b0e;
+        }
+
+        .contact-details {
+            margin: 2rem 0;
+        }
+
+        .contact-item {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 3rem;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            section { padding: 4rem 5%; }
+            .nav-links { display: none; } /* Hidden on mobile for simplicity */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Jarek<span>.</span></div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#experience">Experience</a>
+            <a href="#portfolio">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <div class="profile-wrapper">
+                <img src="profile.jpg" alt="Jarek Melgar">
+            </div>
+            
+            <h1>Jarek Melgar</h1>
+            <h2>UI/UX Designer & Administrative Officer</h2>
+            <a href="#portfolio" class="btn">View My Work</a>
+        </div>
+    </header>
+
+    <section id="experience">
+        <h2 class="section-title reveal">Experience</h2>
+        <div class="experience-grid">
+            
+            <div class="exp-card reveal">
+                <span class="exp-year">2025 - Present</span>
+                <h3 class="exp-role">UI/UX Designer & Admin</h3>
+                <p class="exp-company">Big Boys Automation</p>
+                <p class="exp-desc">Led the BBA main website design, US-based restaurant admin systems, and Glokahub HMS interface. Combined aesthetics with functional administrative logic.</p>
+            </div>
+
+            <div class="exp-card reveal">
+                <span class="exp-year">2024</span>
+                <h3 class="exp-role">Administrative Intern</h3>
+                <p class="exp-company">St. Theodore School Inc.</p>
+                <p class="exp-desc">Completed 80 hours of administrative work immersion, handling records and office operations efficiently.</p>
+            </div>
+
+            <div class="exp-card reveal">
+                <span class="exp-year">2022 - 2023</span>
+                <h3 class="exp-role">Manager</h3>
+                <p class="exp-company">Psisimo Bakery</p>
+                <p class="exp-desc">Managed daily operations, production cost analysis, and sales strategies.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2 class="section-title reveal">Selected Work</h2>
+        <div class="portfolio-grid">
+
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="bba-website.png" alt="BBA Main Website">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">BBA Main Website</h3>
+                    <p class="project-desc">A refreshing and simple UI/UX aesthetic for the main company site.</p>
+                    <div class="tags">
+                        <span class="tag">Web Design</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="restaurant-admin.png" alt="Restaurant Admin System">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Restaurant Admin System</h3>
+                    <p class="project-desc">US-based innovative system allowing admins to manage hero sections and operations easily.</p>
+                    <div class="tags">
+                        <span class="tag">System Design</span>
+                        <span class="tag">Admin Tools</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="glokahub.png" alt="Glokahub HMS">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Glokahub HMS Design</h3>
+                    <p class="project-desc">Comprehensive hotel management system design for efficient rent and record management.</p>
+                    <div class="tags">
+                        <span class="tag">Dashboard UI</span>
+                        <span class="tag">Management</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="jsb-pos.png" alt="JSB POS System">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">JSB POS & HSM</h3>
+                    <p class="project-desc">Simple yet modern UI/UX for Point of Sale and Hospitality Systems.</p>
+                    <div class="tags">
+                        <span class="tag">POS Design</span>
+                        <span class="tag">Modern UI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="cad-system.png" alt="CAD Game Credits">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">CAD Admin System</h3>
+                    <p class="project-desc">Modern monitoring interface for admins with an innovative mobile view design.</p>
+                    <div class="tags">
+                        <span class="tag">Mobile View</span>
+                        <span class="tag">Admin UI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="elites-plus.png" alt="Elites Plus">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Elites Plus Streaming</h3>
+                    <p class="project-desc">Freelance project designing a modern UI/UX for a movie streaming platform.</p>
+                    <div class="tags">
+                        <span class="tag">Freelance</span>
+                        <span class="tag">Streaming UI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-img-wrapper">
+                    <img src="josh-plays.png" alt="Josh Plays">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Josh Plays Portfolio</h3>
+                    <p class="project-desc">Portfolio design for a Mobile Legends piloting service.</p>
+                    <div class="tags">
+                        <span class="tag">Freelance</span>
+                        <span class="tag">Gaming UI</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <p style="color: #a1a1aa; margin-bottom: 2rem;">Open for OJT opportunities and collaborative projects.</p>
+        
+        <div class="contact-details">
+            <div class="contact-item">
+                <span>Email:</span> 
+                <a href="mailto:jarekmelgar36@gmail.com" style="text-decoration: underline;">jarekmelgar36@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <span>Phone:</span> 
+                <a href="tel:09563565700">09563565700</a>
+            </div>
+        </div>
+
+        <a href="mailto:jarekmelgar36@gmail.com" class="btn" style="margin-top: 1rem;">Send a Message</a>
+        
+        <p class="copyright">© 2025 Jarek Melgar.</p>
+    </footer>
+
+    <script>
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll Animation (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navigation Active State Background
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(15, 16, 20, 0.95)';
+            } else {
+                nav.style.background = 'rgba(15, 16, 20, 0.8)';
+            }
+        });
+    </script>
+</body>
+</html>
